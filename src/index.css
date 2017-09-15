@@ -2,4 +2,50 @@ body {
   margin: 0;
   padding: 20px;
   font-family: sans-serif;
+  width: 100%;
+  height: 100%;
+}
+
+.tooltip-content {
+  bottom: 19px;
+  position: relative;
+  left: -75px;
+  background: white;
+  border: 1px solid black;
+  color: black;
+  padding: 10px;
+  z-index: 999999;
+  min-width: 120px;
+  position: relative;
+}
+
+.tooltip-content:before {
+  background: white;
+  content: "";
+  padding: 0px;
+  transform: rotate(45deg);
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  z-index: 99;
+  bottom: -10px;
+  left: 65px;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.annotations text {
+  fill: rgba(179, 51, 29, 1);
+}
+
+.annotations path {
+  stroke: rgba(179, 51, 29, 1);
+  stroke-width: 3px;
+  stroke-dasharray: 5 5;
+}
+
+.annotations path.connector-end {
+  fill: rgba(179, 51, 29, 1);
+  stroke-width: 2px;
+  stroke-dasharray: 0;
 }
