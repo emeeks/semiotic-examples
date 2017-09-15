@@ -27,23 +27,20 @@ titleData.forEach((t, i) => {
   }
 });
 
-console.log("colorHash", colorHash);
+const orAxis = { orient: "left" };
 
-console.log("totalData", totalData);
-console.log("titleData", titleData);
-
-const orAxis = { orient: "left", tickFormat: d => d / 1000000 + "m" };
-
-export default class BarChart extends React.Component {
+export default class RankPlot extends React.Component {
   render() {
     return (
       <div>
+        Sketchy Rectangle Plot
         <ORFrame
           size={[1200, 600]}
           data={titleData}
           oAccessor={"studio"}
-          rAccessor={"maxGross"}
-          type={"bar"}
+          rAccessor={"maxRank"}
+          invertR={true}
+          type={"swarm"}
           style={d => ({
             fill: colorHash[d.studio],
             stroke: colorHash[d.studio]
@@ -52,14 +49,9 @@ export default class BarChart extends React.Component {
           margin={{ top: 10, bottom: 50, right: 10, left: 100 }}
           oLabel={d => <text transform={"rotate(45)"}>{d}</text>}
           oPadding={10}
-          hoverAnnotation={true}
-          tooltipContent={({ pieces }) => {
-            return (
-              <div className="tooltip-content">
-                {pieces.map(p => p.title).join(", ")}
-              </div>
-            );
-          }}
+          pieceHoverAnnotation={true}
+          tooltipContent={d => <div className="tooltip-content">{d.title}</div>}
+          renderMode={"sketchy"}
         />
       </div>
     );
