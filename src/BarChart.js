@@ -27,11 +27,6 @@ titleData.forEach((t, i) => {
   }
 });
 
-console.log("colorHash", colorHash);
-
-console.log("totalData", totalData);
-console.log("titleData", titleData);
-
 const orAxis = { orient: "left", tickFormat: d => d / 1000000 + "m" };
 
 export default class BarChart extends React.Component {

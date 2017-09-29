@@ -4,6 +4,7 @@ import Home from "./Home";
 import LineChart from "./LineChart";
 import BarChart from "./BarChart";
 import RankPlot from "./RankPlot";
+import ClimateDashboard from "./ClimateDashboard";
 
 export default class App extends React.Component {
   render() {
@@ -18,6 +19,8 @@ export default class App extends React.Component {
             <Link to="/bar">BarChart</Link>
             {` `}
             <Link to="/rankplot">Sketchy Rectangle Plot</Link>
+            {` `}
+            <Link to="/climate">Climate Dashboard</Link>
           </header>
 
           <main>
@@ -25,6 +28,7 @@ export default class App extends React.Component {
             <Route exact path="/line" component={LineChart} />
             <Route exact path="/bar" component={BarChart} />
             <Route exact path="/rankplot" component={RankPlot} />
+            <Route exact path="/climate" component={ClimateDashboard} />
           </main>
         </div>
       </BrowserRouter>
