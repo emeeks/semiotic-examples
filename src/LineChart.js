@@ -3,7 +3,7 @@ import titleData from "./data/titles.json";
 import totalData from "./data/totals.json";
 import { ResponsiveXYFrame } from "semiotic";
 import { scaleTime } from "d3-scale";
-import { annotationCalloutElbow } from "d3-svg-annotation";
+import { AnnotationCalloutElbow } from "react-annotation";
 
 const tooltipCreator = d => (
   <div className="tooltip-content">
@@ -33,7 +33,7 @@ export default class LineChart extends React.Component {
         title: "Finding Dory",
         dx: 30,
         dy: -50,
-        type: annotationCalloutElbow,
+        type: AnnotationCalloutElbow,
         label: "Very important day"
       }
     ];
