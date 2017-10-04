@@ -1,6 +1,11 @@
 import React from "react";
 import { ketchikan, tucson } from "./data/climate.js";
-import { ORFrame, XYFrame } from "semiotic";
+import {
+  ORFrame,
+  XYFrame,
+  ResponsiveXYFrame,
+  ResponsiveORFrame
+} from "semiotic";
 import { sum } from "d3-array";
 
 const colorHash = {
@@ -17,8 +22,6 @@ const colorHash = {
   nov: "#325b0b",
   dec: "#896c11"
 };
-
-console.log("ketchikan", ketchikan);
 
 const makeHoursArray = climateData => {
   let hoursArray = [];
@@ -49,9 +52,6 @@ const makeLinesData = climateData => {
 const ketchikanTemperatureHours = makeHoursArray(ketchikan);
 const tucsonTemperatureHours = makeHoursArray(tucson);
 const ketchikanLines = makeLinesData(ketchikan);
-
-console.log("ketchikanTemperatureHours", ketchikanTemperatureHours);
-console.log("ketchikanLines", ketchikanLines);
 
 export default class ClimateDashboard extends React.Component {
   render() {
@@ -107,8 +107,9 @@ export default class ClimateDashboard extends React.Component {
 
     return (
       <div>
-        <ORFrame
+        <ResponsiveORFrame
           size={[800, 400]}
+          responsiveWidth={true}
           data={tucsonTemperatureHours}
           oAccessor="month"
           rAccessor="hour"
@@ -124,12 +125,13 @@ export default class ClimateDashboard extends React.Component {
             amplitude: 20
           }}
           oLabel={true}
-          margin={{ top: 10, left: 50, bottom: 10, right: 10 }}
+          margin={{ top: 10, left: 50, bottom: 10, right: 50 }}
           projection="horizontal"
         />
-        <XYFrame
+        <ResponsiveXYFrame
           title={"Delta in Hourly Temperature in Ketchikan"}
           size={[1000, 400]}
+          responsiveWidth={true}
           lines={ketchikanLines}
           xAccessor="hour"
           yAccessor="delta_temp"
@@ -140,8 +142,9 @@ export default class ClimateDashboard extends React.Component {
         />
         <div>
           <h2>Ketchikan</h2>
-          <ORFrame
+          <ResponsiveORFrame
             size={[600, 200]}
+            responsiveWidth={true}
             oAccessor="month"
             rAccessor="temp"
             data={ketchikan}
