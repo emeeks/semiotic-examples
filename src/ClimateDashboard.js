@@ -122,11 +122,12 @@ export default class ClimateDashboard extends React.Component {
             type: "joy",
             bins: 24,
             binValue: d => sum(d.map(p => p.temp)),
-            amplitude: 20
+            amplitude: 40
           }}
           oLabel={true}
           margin={{ top: 10, left: 50, bottom: 10, right: 50 }}
           projection="horizontal"
+          pieceHoverAnnotation={true}
         />
         <ResponsiveXYFrame
           title={"Delta in Hourly Temperature in Ketchikan"}
@@ -150,9 +151,30 @@ export default class ClimateDashboard extends React.Component {
             data={ketchikan}
             oPadding={5}
             oLabel={true}
-            type="bar"
+            type={{
+              type: "bar",
+              customMark: (d, i, xy) => {
+                return (
+                  <g>
+                    <rect
+                      height={xy.height}
+                      width={5}
+                      x={xy.middle - 2.5}
+                      style={{ fill: "#21f0b6", stroke: "black" }}
+                    />
+                    <circle
+                      r={10}
+                      cx={xy.middle}
+                      cy={10}
+                      style={{ fill: "#1f9383", stroke: "black" }}
+                    />
+                  </g>
+                );
+              }
+            }}
+            axis={{ orient: "left" }}
             style={{ fill: "darkred" }}
-            margin={{ top: 10, left: 10, right: 10, bottom: 40 }}
+            margin={{ top: 10, left: 50, right: 10, bottom: 40 }}
           />
           {directionalSolarCharts}
         </div>
