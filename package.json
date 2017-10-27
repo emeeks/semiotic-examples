@@ -3,11 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "material-design-icons-svg": "1.1.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.13",
-    "semiotic": "1.1.7"
+    "semiotic": "1.1.9"
   },
   "scripts": {
     "start": "react-scripts start",

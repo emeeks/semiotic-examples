@@ -7,6 +7,7 @@ import RankPlot from "./RankPlot";
 import ClimateDashboard from "./ClimateDashboard";
 import LineBrush from "./LineBrush";
 import NetworkDiagrams from "./NetworkDiagrams";
+import IconCharts from "./IconCharts";
 
 export default class App extends React.Component {
   render() {
@@ -26,7 +27,7 @@ export default class App extends React.Component {
             {` `}
             <Link to="/linebrush">Line Brush</Link>
             {` `}
-            <Link to="/network">Network Diagram</Link>
+            <Link to="/iconchart">Icon Chart</Link>
           </header>
 
           <main>
@@ -36,7 +37,7 @@ export default class App extends React.Component {
             <Route exact path="/rankplot" component={RankPlot} />
             <Route exact path="/climate" component={ClimateDashboard} />
             <Route exact path="/linebrush" component={LineBrush} />
-            <Route exact path="/network" component={NetworkDiagrams} />
+            <Route exact path="/iconchart" component={IconCharts} />
           </main>
         </div>
       </BrowserRouter>
