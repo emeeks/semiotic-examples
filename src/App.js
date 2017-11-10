@@ -8,6 +8,8 @@ import ClimateDashboard from "./ClimateDashboard";
 import LineBrush from "./LineBrush";
 import NetworkDiagrams from "./NetworkDiagrams";
 import IconCharts from "./IconCharts";
+import ResponsiveDonut from "./ResponsiveDonut";
+import Annotations from "./Annotations";
 
 export default class App extends React.Component {
   render() {
@@ -28,9 +30,13 @@ export default class App extends React.Component {
             <Link to="/linebrush">Line Brush</Link>
             {` `}
             <Link to="/iconchart">Icon Chart</Link>
+            {` `}
+            <Link to="/donut">Responsive Donut</Link>
+            {` `}
+            <Link to="/annotations">Annotation Examples</Link>
           </header>
 
-          <main>
+          <main style={{ height: "100%" }}>
             <Route exact path="/" component={Home} />
             <Route exact path="/line" component={LineChart} />
             <Route exact path="/bar" component={BarChart} />
@@ -38,6 +44,8 @@ export default class App extends React.Component {
             <Route exact path="/climate" component={ClimateDashboard} />
             <Route exact path="/linebrush" component={LineBrush} />
             <Route exact path="/iconchart" component={IconCharts} />
+            <Route exact path="/donut" component={ResponsiveDonut} />
+            <Route exact path="/annotations" component={Annotations} />
           </main>
         </div>
       </BrowserRouter>
