@@ -127,7 +127,7 @@ export default class ClimateDashboard extends React.Component {
           oLabel={true}
           margin={{ top: 10, left: 50, bottom: 10, right: 50 }}
           projection="horizontal"
-          pieceHoverAnnotation={true}
+          summaryHoverAnnotation={true}
         />
         <ResponsiveXYFrame
           title={"Delta in Hourly Temperature in Ketchikan"}

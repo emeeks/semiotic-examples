@@ -44,18 +44,18 @@ html {
   border-bottom: 1px solid black;
 }
 
-.annotations text {
-  fill: rgba(179, 51, 29, 1);
+.annotation text {
+  fill: #b10000;
 }
 
-.annotations path {
-  stroke: rgba(179, 51, 29, 1);
-  stroke-width: 3px;
+.annotation path {
+  stroke: #b10000;
+  stroke-width: 1px;
   stroke-dasharray: 5 5;
 }
 
-.annotations path.connector-end {
-  fill: rgba(179, 51, 29, 1);
-  stroke-width: 2px;
+.annotation path.connector-end {
+  fill: #b10000;
+  stroke-width: 1px;
   stroke-dasharray: 0;
 }

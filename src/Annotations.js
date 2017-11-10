@@ -3,18 +3,29 @@ import { data } from "./data/pokemon.js";
 import { ORFrame, XYFrame } from "semiotic";
 import { csvParse } from "d3-dsv";
 import { Mark } from "semiotic-mark";
+import { AnnotationCalloutElbow, AnnotationBadge } from "react-annotation";
 
 const colors = [
-  "#21f0b6",
-  "#1f9383",
-  "#85d2e1",
-  "#154975",
-  "#7377ec",
-  "#8d30ba",
-  "#dab9ff",
-  "#1f3ca6",
-  "#6f85a6",
-  "#f75ef0"
+  "#b8e27d",
+  "#154e56",
+  "#aedddd",
+  "#389eaa",
+  "#10eddc",
+  "#056e12",
+  "#37d356",
+  "#7c8a4f",
+  "#f7d153",
+  "#653d28",
+  "#ee9292",
+  "#d93669",
+  "#fe8f06",
+  "#b94403",
+  "#ed0e1c",
+  "#3f4c08",
+  "#aea2eb",
+  "#6c36a3",
+  "#d678ef",
+  "#304f9b"
 ];
 
 const colorHash = {};
@@ -62,21 +73,81 @@ export default class Annotations extends React.Component {
             yAccessor={"Defense"}
             pointStyle={d => ({
               fill: colorHash[d["Type 1"]],
-              stroke: "white"
+              fillOpacity: 0.75,
+              stroke: colorHash[d["Type 1"]]
             })}
-            customPointMark={() => <Mark markType="circle" r={4} />}
-            axes={[{ orient: "left" }, { orient: "bottom" }]}
-            margin={{ top: 10, left: 50, bottom: 50, right: 10 }}
+            axes={[
+              {
+                orient: "left",
+                label: "Defense",
+                tickValues: [25, 50, 75, 100, 125, 150, 175, 200]
+              },
+              {
+                orient: "bottom",
+                label: "Attack",
+                tickValues: [25, 50, 75, 100, 125, 150, 175, 200]
+              }
+            ]}
+            hoverAnnotation={[
+              d => ({
+                type: AnnotationCalloutElbow,
+                dx: -30,
+                dy: 50,
+                note: { title: d.Name }
+              }),
+              { type: "vertical-points", threshold: 5 },
+              { type: "horizontal-points", threshold: 5 },
+              { type: "frame-hover" }
+            ]}
+            tooltipContent={d => (
+              <div className="tooltip-content">
+                <p>Attack: {d.Attack}</p>
+                <p>Defense: {d.Defense}</p>
+              </div>
+            )}
+            margin={{ top: 10, left: 60, bottom: 50, right: 10 }}
             annotations={[
               {
                 type: "enclose",
-                label: "Good Pokemon?",
-                dx: -50,
-                dy: 50,
+                label: "Where are the high attack low defense Pokemon?",
+                dx: -130,
+                dy: 10,
                 coordinates: [
-                  { Attack: 180, Defense: 100 },
-                  { Attack: 190, Defense: 100 }
+                  { Attack: 170, Defense: 10 },
+                  { Attack: 150, Defense: 50 }
                 ]
+              },
+              {
+                type: "react-annotation",
+                Attack: 50,
+                Defense: 150,
+                dx: -30,
+                dy: 0,
+                note: { title: "Note at 50,150" }
+              },
+              {
+                type: AnnotationCalloutElbow,
+                Attack: 85,
+                Defense: 200,
+                dx: 30,
+                dy: -50,
+                note: { title: "Out a bit farther" },
+                subject: { text: "C", radius: 12 }
+              },
+              {
+                type: AnnotationBadge,
+                Attack: 10,
+                Defense: 230,
+                dx: 30,
+                dy: -50,
+                subject: { text: "*", radius: 12 }
+              },
+              { type: "x", Attack: 115, label: "Probably a good pokemon" },
+              {
+                type: "y",
+                Defense: 55,
+                dx: -20,
+                label: "Probably a bad pokemon"
               }
             ]}
           />
@@ -93,20 +164,28 @@ export default class Annotations extends React.Component {
             data={pokemon}
             type={"swarm"}
             oAccessor={"Type 1"}
-            rAccessor={"Defense"}
+            rAccessor={"Attack"}
             style={d => ({
               fill: colorHash[d["Type 1"]],
               stroke: colorHash[d["Type 1"]]
             })}
             oPadding={5}
             dynamicColumnWidth={d => d.length}
-            axis={{ orient: "left" }}
+            axis={{ orient: "left", label: "Attack" }}
             oLabel={d => (
               <g transform="rotate(45)">
                 <text>{d}</text>
               </g>
             )}
-            margin={{ top: 10, left: 50, bottom: 50, right: 40 }}
+            pieceHoverAnnotation={true}
+            tooltipContent={d => (
+              <div className="tooltip-content">
+                <p>{d.Name}</p>
+                <p>Attack: {d.Attack}</p>
+                <p>Defense: {d.Defense}</p>
+              </div>
+            )}
+            margin={{ top: 10, left: 60, bottom: 50, right: 40 }}
           />
         </div>
       </div>
