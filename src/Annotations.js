@@ -3,7 +3,11 @@ import { data } from "./data/pokemon.js";
 import { ORFrame, XYFrame } from "semiotic";
 import { csvParse } from "d3-dsv";
 import { Mark } from "semiotic-mark";
-import { AnnotationCalloutElbow, AnnotationBadge } from "react-annotation";
+import {
+  AnnotationCalloutElbow,
+  AnnotationCalloutCircle,
+  AnnotationBadge
+} from "react-annotation";
 
 const colors = [
   "#b8e27d",
@@ -69,8 +73,8 @@ export default class Annotations extends React.Component {
           <XYFrame
             size={[750, 750]}
             points={pokemon}
-            xAccessor={"Attack"}
-            yAccessor={"Defense"}
+            xAccessor={d => d.Attack + d.Defense}
+            yAccessor={"SpecialAttack"}
             pointStyle={d => ({
               fill: colorHash[d["Type 1"]],
               fillOpacity: 0.75,
@@ -79,13 +83,13 @@ export default class Annotations extends React.Component {
             axes={[
               {
                 orient: "left",
-                label: "Defense",
+                label: "Special Attack",
                 tickValues: [25, 50, 75, 100, 125, 150, 175, 200]
               },
               {
                 orient: "bottom",
-                label: "Attack",
-                tickValues: [25, 50, 75, 100, 125, 150, 175, 200]
+                label: "Attack + Defense",
+                tickValues: [50, 100, 150, 200, 250, 300]
               }
             ]}
             hoverAnnotation={[
@@ -108,46 +112,40 @@ export default class Annotations extends React.Component {
             margin={{ top: 10, left: 60, bottom: 50, right: 10 }}
             annotations={[
               {
-                type: "enclose",
-                label: "Where are the high attack low defense Pokemon?",
-                dx: -130,
-                dy: 10,
-                coordinates: [
-                  { Attack: 170, Defense: 10 },
-                  { Attack: 150, Defense: 50 }
-                ]
+                type: AnnotationCalloutCircle,
+                label: "",
+                dx: 29.5,
+                dy: -268,
+                SpecialAttack: 105,
+                Attack: 0,
+                Defense: 35
               },
               {
-                type: "react-annotation",
-                Attack: 50,
-                Defense: 150,
-                dx: -30,
-                dy: 0,
-                note: { title: "Note at 50,150" }
+                type: AnnotationCalloutCircle,
+                label: "",
+                dx: -27,
+                dy: -110,
+                SpecialAttack: 120,
+                Attack: 0,
+                Defense: 65
               },
               {
-                type: AnnotationCalloutElbow,
-                Attack: 85,
-                Defense: 200,
-                dx: 30,
-                dy: -50,
-                note: { title: "Out a bit farther" },
-                subject: { text: "C", radius: 12 }
+                type: AnnotationCalloutCircle,
+                label: "",
+                dx: -83.5,
+                dy: -125,
+                SpecialAttack: 135,
+                Attack: 0,
+                Defense: 95
               },
               {
-                type: AnnotationBadge,
-                Attack: 10,
-                Defense: 230,
-                dx: 30,
-                dy: -50,
-                subject: { text: "*", radius: 12 }
-              },
-              { type: "x", Attack: 115, label: "Probably a good pokemon" },
-              {
-                type: "y",
-                Defense: 55,
-                dx: -20,
-                label: "Probably a bad pokemon"
+                type: AnnotationCalloutCircle,
+                label: "Glass Cannon Magic-Themed Pokemon",
+                dx: -100,
+                dy: -5,
+                SpecialAttack: 175,
+                Attack: 0,
+                Defense: 115
               }
             ]}
           />
@@ -155,37 +153,303 @@ export default class Annotations extends React.Component {
         <div
           style={{
             display: "inline-block",
-            width: "750px",
-            height: "750px"
+            width: "1500px",
+            height: "1500px"
           }}
         >
           <ORFrame
-            size={[750, 750]}
+            size={[1500, 1500]}
             data={pokemon}
-            type={"swarm"}
+            dynamicColumnWidth={d => d.length}
+            type={{ type: "swarm", r: 2 }}
             oAccessor={"Type 1"}
             rAccessor={"Attack"}
             style={d => ({
               fill: colorHash[d["Type 1"]],
               stroke: colorHash[d["Type 1"]]
             })}
-            oPadding={5}
-            dynamicColumnWidth={d => d.length}
+            summaryStyle={d => ({
+              fill: colorHash[d["Type 1"]],
+              fillOpacity: 0.5,
+              stroke: colorHash[d["Type 1"]]
+            })}
+            summaryType={"violin"}
+            sortO={() => {}}
+            projection={"radial"}
+            oPadding={1}
             axis={{ orient: "left", label: "Attack" }}
-            oLabel={d => (
-              <g transform="rotate(45)">
-                <text>{d}</text>
-              </g>
-            )}
             pieceHoverAnnotation={true}
+            annotations={[
+              {
+                type: "category",
+                bracketType: "straight",
+                categories: ["Grass", "Flying", "Water", "Bug", "Normal"],
+                label: "Dumb Powers",
+                position: "left",
+                offset: 70,
+                depth: 10,
+                padding: 0
+              },
+              {
+                type: "category",
+                bracketType: "straight",
+                categories: ["Poison", "Electric", "Ground"],
+                label: "Lame Powers",
+                position: "left",
+                offset: 70,
+                depth: 10,
+                padding: 0
+              },
+              {
+                type: "category",
+                bracketType: "curly",
+                categories: [
+                  "Grass",
+                  "Flying",
+                  "Water",
+                  "Bug",
+                  "Normal",
+                  "Poison",
+                  "Electric",
+                  "Ground"
+                ],
+                label: "Garbage Pokemon",
+                position: "left",
+                offset: 135,
+                depth: 10,
+                padding: 0
+              },
+              {
+                type: "category",
+                bracketType: "curly",
+                categories: ["Fairy", "Fire", "Psychic", "Rock", "Ghost"],
+                label: "Creepy Powers",
+                position: "left",
+                offset: 70,
+                depth: 10,
+                padding: 0
+              },
+              {
+                type: "category",
+                bracketType: "straight",
+                categories: ["Ice", "Dragon", "Dark", "Steel", "Fighting"],
+                label: "Cool Powers",
+                position: "left",
+                offset: 70,
+                depth: 10,
+                padding: 0
+              },
+              {
+                type: "category",
+                bracketType: "curly",
+                categories: [
+                  "Fairy",
+                  "Fire",
+                  "Psychic",
+                  "Rock",
+                  "Ghost",
+                  "Ice",
+                  "Dragon",
+                  "Dark",
+                  "Steel",
+                  "Fighting"
+                ],
+                label: "Awesome Pokemon",
+                position: "left",
+                offset: 135,
+                depth: 10,
+                padding: 0
+              },
+              {
+                type: "category",
+                bracketType: "straight",
+                categories: "Grass",
+                label: "Grass",
+                position: "left",
+                offset: 15,
+                depth: 20,
+                padding: 0
+              },
+              {
+                type: "category",
+                bracketType: "curly",
+                categories: "Flying",
+                label: "Flying",
+                position: "left",
+                offset: 15,
+                depth: 20,
+                padding: 0
+              },
+              {
+                type: "category",
+                bracketType: "straight",
+                categories: "Water",
+                label: "Water",
+                position: "left",
+                offset: 15,
+                depth: 20,
+                padding: 0
+              },
+              {
+                type: "category",
+                bracketType: "straight",
+                categories: "Bug",
+                label: "Bug",
+                position: "left",
+                offset: 15,
+                depth: 20,
+                padding: 0
+              },
+              {
+                type: "category",
+                bracketType: "straight",
+                categories: "Normal",
+                label: "Normal",
+                position: "left",
+                offset: 15,
+                depth: 20,
+                padding: 0
+              },
+              {
+                type: "category",
+                bracketType: "straight",
+                categories: "Poison",
+                label: "Poison",
+                position: "left",
+                offset: 15,
+                depth: 20,
+                padding: 0
+              },
+              {
+                type: "category",
+                bracketType: "straight",
+                categories: "Electric",
+                label: "Electric",
+                position: "left",
+                offset: 15,
+                depth: 20,
+                padding: 0
+              },
+              {
+                type: "category",
+                bracketType: "straight",
+                categories: "Ground",
+                label: "Ground",
+                position: "left",
+                offset: 15,
+                depth: 20,
+                padding: 0
+              },
+              {
+                type: "category",
+                bracketType: "straight",
+                categories: "Fairy",
+                label: "Fairy",
+                position: "left",
+                offset: 15,
+                depth: 20,
+                padding: 0
+              },
+              {
+                type: "category",
+                bracketType: "straight",
+                categories: "Fire",
+                label: "Fire",
+                position: "left",
+                offset: 15,
+                depth: 20,
+                padding: 0
+              },
+              {
+                type: "category",
+                bracketType: "straight",
+                categories: "Psychic",
+                label: "Psychic",
+                position: "left",
+                offset: 15,
+                depth: 20,
+                padding: 0
+              },
+              {
+                type: "category",
+                bracketType: "straight",
+                categories: "Rock",
+                label: "Rock",
+                position: "left",
+                offset: 15,
+                depth: 20,
+                padding: 0
+              },
+              {
+                type: "category",
+                bracketType: "straight",
+                categories: "Ghost",
+                label: "Ghost",
+                position: "left",
+                offset: 15,
+                depth: 20,
+                padding: 0
+              },
+              {
+                type: "category",
+                bracketType: "straight",
+                categories: "Ice",
+                label: "Ice",
+                position: "left",
+                offset: 15,
+                depth: 20,
+                padding: 0
+              },
+              {
+                type: "category",
+                bracketType: "straight",
+                categories: "Dragon",
+                label: "Dragon",
+                position: "left",
+                offset: 15,
+                depth: 20,
+                padding: 0
+              },
+              {
+                type: "category",
+                bracketType: "curly",
+                categories: "Dark",
+                label: "Dark",
+                position: "left",
+                offset: 15,
+                depth: 20,
+                padding: 0
+              },
+              {
+                type: "category",
+                bracketType: "curly",
+                categories: "Steel",
+                label: "Steel",
+                position: "left",
+                offset: 15,
+                depth: 20,
+                padding: 0
+              },
+              {
+                type: "category",
+                bracketType: "straight",
+                categories: "Fighting",
+                label: "Fighting",
+                position: "left",
+                offset: 15,
+                depth: 20,
+                padding: 0
+              }
+            ]}
             tooltipContent={d => (
               <div className="tooltip-content">
                 <p>{d.Name}</p>
+                <p>{d["Type 1"]}</p>
                 <p>Attack: {d.Attack}</p>
                 <p>Defense: {d.Defense}</p>
               </div>
             )}
-            margin={{ top: 10, left: 60, bottom: 50, right: 40 }}
+            margin={{ top: 250, left: 250, bottom: 250, right: 250 }}
           />
         </div>
       </div>

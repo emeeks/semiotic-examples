@@ -51,11 +51,14 @@ html {
 .annotation path {
   stroke: #b10000;
   stroke-width: 1px;
-  stroke-dasharray: 5 5;
 }
 
 .annotation path.connector-end {
   fill: #b10000;
   stroke-width: 1px;
   stroke-dasharray: 0;
+}
+
+.tick > path {
+  stroke: lightgray;
 }
