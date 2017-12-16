@@ -1,32 +1,32 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { ResponsiveORFrame } from "semiotic";
+import React from "react"
+import PropTypes from "prop-types"
+import { ResponsiveORFrame } from "semiotic"
 
 export default class Donut extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       data: []
-    };
+    }
   }
 
   static propTypes = {
     innerRadius: PropTypes.string,
     colors: PropTypes.array,
     padding: PropTypes.number
-  };
+  }
 
   static defaultProps = {
     innerRadius: "25%",
     colors: ["#b30000", "#e34a33", "#fc8d59", "#fdcc8a"],
     padding: 0
-  };
+  }
 
   componentDidMount() {
     function getRandomInt(min, max) {
-      min = Math.ceil(min);
-      max = Math.floor(max);
-      return Math.floor(Math.random() * (max - min)) + min;
+      min = Math.ceil(min)
+      max = Math.floor(max)
+      return Math.floor(Math.random() * (max - min)) + min
     }
     // load the data
     this.setState({
@@ -36,7 +36,7 @@ export default class Donut extends React.Component {
         { key: 3, count: getRandomInt(10, 50) },
         { key: 4, count: getRandomInt(20, 100) }
       ]
-    });
+    })
   }
 
   render() {
@@ -55,7 +55,7 @@ export default class Donut extends React.Component {
             fill: this.props.colors[i],
             strokeWidth: 1
           })}
-          type={{ type: "bar", innerRadius: this.props.innerRadius() }}
+          type={{ type: "bar", innerRadius: 10 }}
           dynamicColumnWidth={"count"}
           rAccessor={d => 1}
           oAccessor={"key"}
@@ -64,6 +64,6 @@ export default class Donut extends React.Component {
           customClickBehavior={this.clickDonut}
         />
       </div>
-    );
+    )
   }
 }

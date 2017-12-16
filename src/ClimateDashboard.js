@@ -1,12 +1,12 @@
-import React from "react";
-import { ketchikan, tucson } from "./data/climate.js";
+import React from "react"
+import { ketchikan, tucson } from "./data/climate.js"
 import {
   ORFrame,
   XYFrame,
   ResponsiveXYFrame,
   ResponsiveORFrame
-} from "semiotic";
-import { sum } from "d3-array";
+} from "semiotic"
+import { sum } from "d3-array"
 
 const colorHash = {
   jan: "#21f0b6",
@@ -21,37 +21,37 @@ const colorHash = {
   oct: "#ef76b1",
   nov: "#325b0b",
   dec: "#896c11"
-};
+}
 
 const makeHoursArray = climateData => {
-  let hoursArray = [];
+  let hoursArray = []
   climateData.forEach(month => {
     const decoratedHours = month.hourlyTemp.map((h, i) => ({
       hour: i,
       temp: h,
       month: month.month
-    }));
-    hoursArray = [...hoursArray, ...decoratedHours];
-  });
-  return hoursArray;
-};
+    }))
+    hoursArray = [...hoursArray, ...decoratedHours]
+  })
+  return hoursArray
+}
 
 const makeLinesData = climateData => {
-  const lines = [];
+  const lines = []
   climateData.forEach(month => {
     const lineCoordinates = month.hourlyTemp.map((h, i) => ({
       hour: i,
       temp: h,
       delta_temp: h - month.temp
-    }));
-    lines.push({ label: month.month, coordinates: lineCoordinates });
-  });
-  return lines;
-};
+    }))
+    lines.push({ label: month.month, coordinates: lineCoordinates })
+  })
+  return lines
+}
 
-const ketchikanTemperatureHours = makeHoursArray(ketchikan);
-const tucsonTemperatureHours = makeHoursArray(tucson);
-const ketchikanLines = makeLinesData(ketchikan);
+const ketchikanTemperatureHours = makeHoursArray(ketchikan)
+const tucsonTemperatureHours = makeHoursArray(tucson)
+const ketchikanLines = makeLinesData(ketchikan)
 
 export default class ClimateDashboard extends React.Component {
   render() {
@@ -76,8 +76,8 @@ export default class ClimateDashboard extends React.Component {
             margin={{ top: 0, left: 50, right: 20, bottom: 0 }}
           />
         </div>
-      );
-    });
+      )
+    })
 
     const directionalSolarChartsTucson = tucson.map(month => {
       return (
@@ -102,8 +102,8 @@ export default class ClimateDashboard extends React.Component {
             margin={{ top: 0, left: 50, right: 20, bottom: 0 }}
           />
         </div>
-      );
-    });
+      )
+    })
 
     return (
       <div>
@@ -119,10 +119,11 @@ export default class ClimateDashboard extends React.Component {
             opacity: 0.95
           })}
           summaryType={{
-            type: "joy",
+            type: "histogram",
             bins: 24,
             binValue: d => sum(d.map(p => p.temp)),
-            amplitude: 40
+            amplitude: 40,
+            relative: true
           }}
           oLabel={true}
           margin={{ top: 10, left: 50, bottom: 10, right: 50 }}
@@ -169,7 +170,7 @@ export default class ClimateDashboard extends React.Component {
                       style={{ fill: "#1f9383", stroke: "black" }}
                     />
                   </g>
-                );
+                )
               }
             }}
             axis={{ orient: "left" }}
@@ -183,6 +184,6 @@ export default class ClimateDashboard extends React.Component {
           {directionalSolarChartsTucson}
         </div>
       </div>
-    );
+    )
   }
 }

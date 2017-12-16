@@ -62,3 +62,7 @@ html {
 .tick > path {
   stroke: lightgray;
 }
+
+line.axis-baseline {
+  stroke: none;
+}

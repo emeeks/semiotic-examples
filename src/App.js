@@ -1,15 +1,16 @@
-import React from "react";
-import { Route, BrowserRouter, Link } from "react-router-dom";
-import Home from "./Home";
-import LineChart from "./LineChart";
-import BarChart from "./BarChart";
-import RankPlot from "./RankPlot";
-import ClimateDashboard from "./ClimateDashboard";
-import LineBrush from "./LineBrush";
-import NetworkDiagrams from "./NetworkDiagrams";
-import IconCharts from "./IconCharts";
-import ResponsiveDonut from "./ResponsiveDonut";
-import Annotations from "./Annotations";
+import React from "react"
+import { Route, BrowserRouter, Link } from "react-router-dom"
+import Home from "./Home"
+import LineChart from "./LineChart"
+import BarChart from "./BarChart"
+import RankPlot from "./RankPlot"
+import ClimateDashboard from "./ClimateDashboard"
+import LineBrush from "./LineBrush"
+import NetworkDiagrams from "./NetworkDiagrams"
+import IconCharts from "./IconCharts"
+import ResponsiveDonut from "./ResponsiveDonut"
+import Annotations from "./Annotations"
+import SnakeyChart from "./SnakeyChart"
 
 export default class App extends React.Component {
   render() {
@@ -46,9 +47,10 @@ export default class App extends React.Component {
             <Route exact path="/iconchart" component={IconCharts} />
             <Route exact path="/donut" component={ResponsiveDonut} />
             <Route exact path="/annotations" component={Annotations} />
+            <Route exact path="/snakey" component={SnakeyChart} />
           </main>
         </div>
       </BrowserRouter>
-    );
+    )
   }
 }

@@ -1,13 +1,13 @@
-import React from "react";
-import { data } from "./data/pokemon.js";
-import { ORFrame, XYFrame } from "semiotic";
-import { csvParse } from "d3-dsv";
-import { Mark } from "semiotic-mark";
+import React from "react"
+import { data } from "./data/pokemon.js"
+import { ORFrame, XYFrame } from "semiotic"
+import { csvParse } from "d3-dsv"
+import { Mark } from "semiotic-mark"
 import {
   AnnotationCalloutElbow,
   AnnotationCalloutCircle,
   AnnotationBadge
-} from "react-annotation";
+} from "react-annotation"
 
 const colors = [
   "#b8e27d",
@@ -30,33 +30,33 @@ const colors = [
   "#6c36a3",
   "#d678ef",
   "#304f9b"
-];
+]
 
-const colorHash = {};
+const colorHash = {}
 
-let colorI = 0;
+let colorI = 0
 
-const pokemon = csvParse(data);
+const pokemon = csvParse(data)
 pokemon.forEach((p, q) => {
-  p.Attack = parseInt(p.Attack);
-  p.Defense = parseInt(p.Defense);
-  p.Generation = parseInt(p.Generation);
-  p.HP = parseInt(p.HP);
-  p.SpecialAttack = parseInt(p["Sp. Atk"]);
-  p.SpecialDefense = parseInt(p["Sp. Def"]);
-  p.Speed = parseInt(p["Speed"]);
-  p.Total = parseInt(p["Total"]);
-  colorHash[p["Type 1"]] = colors[q % colors.length];
-});
+  p.Attack = parseInt(p.Attack)
+  p.Defense = parseInt(p.Defense)
+  p.Generation = parseInt(p.Generation)
+  p.HP = parseInt(p.HP)
+  p.SpecialAttack = parseInt(p["Sp. Atk"])
+  p.SpecialDefense = parseInt(p["Sp. Def"])
+  p.Speed = parseInt(p["Speed"])
+  p.Total = parseInt(p["Total"])
+  colorHash[p["Type 1"]] = colors[q % colors.length]
+})
 
-console.log("pokemon", pokemon);
+console.log("pokemon", pokemon)
 
-const pokeEdges = [];
-const pokeNodes = [];
-const pokeHash = {};
+const pokeEdges = []
+const pokeNodes = []
+const pokeHash = {}
 
-const orAxis = { orient: "left" };
-console.log("colorHash", colorHash);
+const orAxis = { orient: "left" }
+console.log("colorHash", colorHash)
 
 export default class Annotations extends React.Component {
   render() {
@@ -92,60 +92,42 @@ export default class Annotations extends React.Component {
                 tickValues: [50, 100, 150, 200, 250, 300]
               }
             ]}
-            hoverAnnotation={[
-              d => ({
-                type: AnnotationCalloutElbow,
-                dx: -30,
-                dy: 50,
-                note: { title: d.Name }
-              }),
-              { type: "vertical-points", threshold: 5 },
-              { type: "horizontal-points", threshold: 5 },
-              { type: "frame-hover" }
-            ]}
+            hoverAnnotation={false}
             tooltipContent={d => (
               <div className="tooltip-content">
                 <p>Attack: {d.Attack}</p>
                 <p>Defense: {d.Defense}</p>
               </div>
             )}
-            margin={{ top: 10, left: 60, bottom: 50, right: 10 }}
+            margin={{ left: 60, bottom: 50 }}
             annotations={[
               {
                 type: AnnotationCalloutCircle,
-                label: "",
-                dx: 29.5,
-                dy: -268,
-                SpecialAttack: 105,
-                Attack: 0,
-                Defense: 35
-              },
-              {
-                type: AnnotationCalloutCircle,
-                label: "",
-                dx: -27,
-                dy: -110,
-                SpecialAttack: 120,
-                Attack: 0,
-                Defense: 65
-              },
-              {
-                type: AnnotationCalloutCircle,
-                label: "",
-                dx: -83.5,
-                dy: -125,
-                SpecialAttack: 135,
-                Attack: 0,
-                Defense: 95
-              },
-              {
-                type: AnnotationCalloutCircle,
-                label: "Glass Cannon Magic-Themed Pokemon",
-                dx: -100,
-                dy: -5,
-                SpecialAttack: 175,
-                Attack: 0,
-                Defense: 115
+                label: "Glass-Cannon Magic Themed Pokemon",
+                dx: -30,
+                dy: -150,
+                coordinates: [
+                  {
+                    SpecialAttack: 120,
+                    Attack: 0,
+                    Defense: 65
+                  },
+                  {
+                    SpecialAttack: 105,
+                    Attack: 0,
+                    Defense: 35
+                  },
+                  {
+                    SpecialAttack: 135,
+                    Attack: 0,
+                    Defense: 95
+                  },
+                  {
+                    SpecialAttack: 175,
+                    Attack: 0,
+                    Defense: 115
+                  }
+                ]
               }
             ]}
           />
@@ -453,6 +435,6 @@ export default class Annotations extends React.Component {
           />
         </div>
       </div>
-    );
+    )
   }
 }
