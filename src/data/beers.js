@@ -1,4 +1,4 @@
-,abv,ibu,id,name,style,brewery_id,ounces
+export default `i,abv,bitterness,id,name,style,brewery_id,ounces
 0,0.05,,1436,Pub Beer,American Pale Lager,408,12.0
 1,0.066,,2265,Devil's Cup,American Pale Ale (APA),177,12.0
 2,0.071,,2264,Rise of the Phoenix,American IPA,177,12.0
@@ -2408,4 +2408,4 @@
 2406,0.052000000000000005,,807,Rail Yard Ale,American Amber / Red Ale,424,12.0
 2407,0.055,,620,B3K Black Lager,Schwarzbier,424,12.0
 2408,0.055,40.0,145,Silverback Pale Ale,American Pale Ale (APA),424,12.0
-2409,0.052000000000000005,,84,Rail Yard Ale (2009),American Amber / Red Ale,424,12.0
+2409,0.052000000000000005,,84,Rail Yard Ale (2009),American Amber / Red Ale,424,12.0`

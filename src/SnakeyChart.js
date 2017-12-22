@@ -27,7 +27,7 @@ export default class SnakeyChart extends React.Component {
     return (
       <div>
         <NetworkFrame
-          size={[1500, 2000]}
+          size={[1000, 800]}
           edges={parsedEdges}
           sourceAccessor="source"
           targetAccessor="target"
@@ -35,7 +35,6 @@ export default class SnakeyChart extends React.Component {
           nodeStyle={{ stroke: "gold", fill: "lightgoldenrodyellow" }}
           networkType={{ type: "sankey", orient: "left" }}
           hoverAnnotation={true}
-          nodeLabels={true}
           margin={100}
         />
       </div>

@@ -11,6 +11,7 @@ import IconCharts from "./IconCharts"
 import ResponsiveDonut from "./ResponsiveDonut"
 import Annotations from "./Annotations"
 import SnakeyChart from "./SnakeyChart"
+import Potpourri from "./Potpourri"
 
 export default class App extends React.Component {
   render() {
@@ -35,6 +36,10 @@ export default class App extends React.Component {
             <Link to="/donut">Responsive Donut</Link>
             {` `}
             <Link to="/annotations">Annotation Examples</Link>
+            {` `}
+            <Link to="/snakey">Cyclical Sankey</Link>
+            {` `}
+            <Link to="/potpourri">Various</Link>
           </header>
 
           <main style={{ height: "100%" }}>
@@ -48,6 +53,7 @@ export default class App extends React.Component {
             <Route exact path="/donut" component={ResponsiveDonut} />
             <Route exact path="/annotations" component={Annotations} />
             <Route exact path="/snakey" component={SnakeyChart} />
+            <Route exact path="/potpourri" component={Potpourri} />
           </main>
         </div>
       </BrowserRouter>
