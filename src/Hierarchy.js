@@ -12,6 +12,8 @@ baseballData.forEach(d => {
   d.average = +d.average
 })
 
+console.log("flareData", flareData)
+
 const colors = [
   "#aee39a",
   "#5c922f",
@@ -37,7 +39,65 @@ const quantitativeColors = [
 ]
 
 export default class Hierarchy extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      type: "tree"
+    }
+  }
+
   render() {
-    return <div>Hierarchy all the things</div>
+    const selectOptions = [
+      "tree",
+      "cluster",
+      "force",
+      "sankey",
+      "treemap",
+      "partition"
+    ].map(d => (
+      <option key={`button-${d}`} value={d} label={d}>
+        {d}
+      </option>
+    ))
+    return (
+      <div>
+        Hierarchy all the things. Like this.
+        <div>
+          <select
+            onChange={e => {
+              this.setState({ type: e.target.value })
+            }}
+          >
+            {selectOptions}
+          </select>
+          <NetworkFrame
+            size={[1000, 500]}
+            edges={flareData}
+            networkType={{
+              type: this.state.type,
+              projection: "vertical",
+              nodePadding: 1,
+              padding: 0,
+              sum: d => d.value
+            }}
+            edgeStyle={{ fill: "brown", fillOpacity: 0.5, stroke: "none" }}
+            edgeType={"arrowhead"}
+            nodeStyle={{ fill: "darkgreen", stroke: "black" }}
+            nodeSizeAccessor={3}
+            nodeIDAccessor={"name"}
+            edgeWeightAccessor={"value"}
+            margin={20}
+            hoverAnnotation={true}
+            tooltipContent={d => (
+              <div className="tooltip-content">
+                <p>{d.name}</p>
+              </div>
+            )}
+            baseMarkProps={{ transitionDuration: 3000 }}
+          />
+        </div>
+      </div>
+    )
   }
 }
