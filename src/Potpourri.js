@@ -7,12 +7,12 @@ import baseballRaw from "./data/baseball_salary"
 import spotifyRaw from "./data/spotify"
 import { AnnotationCalloutElbow } from "react-annotation"
 import { csvParse } from "d3-dsv"
-import { scaleTime } from "d3-scale"
+import { scaleTime, scaleLog } from "d3-scale"
 
 const beerData = csvParse(beerRaw)
 const bikeData = csvParse(bikeRaw).filter((d, i) => i < 30)
 const spotifyData = csvParse(spotifyRaw)
-const baseballData = csvParse(spotifyRaw)
+const baseballData = csvParse(baseballRaw)
 
 spotifyData.forEach(d => {
   d.acousticness = +d.acousticness
@@ -25,13 +25,18 @@ beerData.forEach(d => {
   d.abv = +d.abv
 })
 
+const positions = {}
+
 baseballData.forEach(d => {
   d.salary = +d.salary
   d.value = +d.value
   d.average = +d.average
+  positions[d.position] = true
 })
 
-console.log("beerData", beerData)
+console.log("positions", positions)
+
+console.log("baseballData", baseballData)
 
 const bikeBridges = [
   "Brooklyn Bridge",
@@ -64,8 +69,15 @@ const colors = [
   "#fa217f",
   "#d65b6c",
   "#feba53",
-  "#5f80da"
+  "#5f80da",
+  "brown"
 ]
+
+const colorHash = {}
+
+Object.keys(positions).forEach((p, i) => {
+  colorHash[p] = colors[i % colors.length]
+})
 
 const bridgeLines = bikeBridges.map((name, i) => {
   return {
@@ -75,7 +87,7 @@ const bridgeLines = bikeBridges.map((name, i) => {
   }
 })
 
-console.log("bridgeLines", bridgeLines)
+console.log("colorHash", colorHash)
 
 const quantitativeColors = [
   "#f1cbd5",
@@ -91,10 +103,34 @@ const songAnnotations = spotifyData
 
 console.log("songAnnotations", songAnnotations)
 
-export default class SnakeyChart extends React.Component {
+export default class Potpourri extends React.Component {
   render() {
     return (
       <div>
+        <ORFrame
+          size={[1000, 500]}
+          data={baseballData}
+          oAccessor={"team"}
+          rAccessor={"salary"}
+          type="bar"
+          style={d => ({
+            fill: colorHash[d.position],
+            stroke: "rgba(0,0,0,0)"
+          })}
+          oPadding={10}
+          //          oLabel={true}
+          //          axis={{ orient: "left" }}
+          margin={10}
+          //          rScaleType={scaleLog}
+          pieceHoverAnnotation={true}
+          tooltipContent={d => (
+            <div className="tooltip-content">
+              <p>{d.name}</p>
+            </div>
+          )}
+          canvasPieces={true}
+          canvasPostProcess={"chuckClose"}
+        />
         <ORFrame
           size={[1000, 1000]}
           oLabel={true}
