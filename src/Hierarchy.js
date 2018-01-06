@@ -78,12 +78,15 @@ export default class Hierarchy extends React.Component {
               type: this.state.type,
               projection: "vertical",
               nodePadding: 1,
-              padding: 0,
+              padding: this.state.type === "treemap" ? 5 : 0,
               sum: d => d.value
             }}
             edgeStyle={{ fill: "brown", fillOpacity: 0.5, stroke: "none" }}
             edgeType={"arrowhead"}
-            nodeStyle={{ fill: "darkgreen", stroke: "black" }}
+            nodeStyle={d => ({
+              fill: quantitativeColors[d.depth],
+              stroke: "black"
+            })}
             nodeSizeAccessor={3}
             nodeIDAccessor={"name"}
             edgeWeightAccessor={"value"}
