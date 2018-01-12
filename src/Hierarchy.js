@@ -54,7 +54,8 @@ export default class Hierarchy extends React.Component {
       "force",
       "sankey",
       "treemap",
-      "partition"
+      "partition",
+      "chord"
     ].map(d => (
       <option key={`button-${d}`} value={d} label={d}>
         {d}
@@ -72,7 +73,7 @@ export default class Hierarchy extends React.Component {
             {selectOptions}
           </select>
           <NetworkFrame
-            size={[1000, 500]}
+            size={[1000, 1000]}
             edges={flareData}
             networkType={{
               type: this.state.type,
@@ -90,7 +91,7 @@ export default class Hierarchy extends React.Component {
             nodeSizeAccessor={3}
             nodeIDAccessor={"name"}
             edgeWeightAccessor={"value"}
-            margin={20}
+            margin={{ top: 0, left: 0 }}
             hoverAnnotation={true}
             tooltipContent={d => (
               <div className="tooltip-content">
