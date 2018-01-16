@@ -44,5 +44,3 @@ premier_lines.forEach(line => {
   })
   line.coordinates = newCoordinates
 })
-
-export default { premier_points, premier_lines }

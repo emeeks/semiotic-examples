@@ -5,12 +5,9 @@ import beerRaw from "./data/beers"
 import bikeRaw from "./data/nyc_bike"
 import baseballRaw from "./data/baseball_salary"
 import spotifyRaw from "./data/spotify"
-import premier_points from "./data/premier_league"
 import { AnnotationCalloutElbow } from "react-annotation"
 import { csvParse } from "d3-dsv"
 import { scaleTime, scaleLog } from "d3-scale"
-
-console.log("premier_points", premier_points)
 
 const beerData = csvParse(beerRaw)
 const bikeData = csvParse(bikeRaw).filter((d, i) => i < 30)
